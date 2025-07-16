@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WildTrails | Safari Travel Consultancy</title>
+    <meta name="description" content="Professional safari travel itinerary planner and booking management system">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#5C6B3D",
+                        secondary: "#8B7E5E",
+                        accent: "#C19A6B",
+                        dark: "#3A3A3A",
+                        light: "#F5F5F0"
+                    },
+                    fontFamily: {
+                        sans: ['"Open Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@400;500;700&display=swap');
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        .sidebar {
+            background-image: linear-gradient(rgba(92, 107, 61, 0.9), rgba(92, 107, 61, 0.95)), 
+                              url('https://picsum.photos/800/1200?random=10');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .print-only {
+            display: none;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .print-only {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-light text-dark">
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar text-white w-full md:w-64 flex-shrink-0 no-print">
+            <div class="p-6">
+                <div class="flex items-center mb-8">
+                    <i class="fas fa-paw text-2xl mr-2 text-accent"></i>
+                    <h1 class="text-2xl font-serif font-bold">WildTrails</h1>
+                </div>
+                
+                <nav class="space-y-2">
+                    <a href="#" class="flex items-center px-4 py-2 rounded-lg bg-primary bg-opacity-50">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-50 transition">
+                        <i class="fas fa-map-marked-alt mr-3"></i>
+                        Itineraries
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-50 transition">
+                        <i class="fas fa-users mr-3"></i>
+                        Clients
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-50 transition">
+                        <i class="fas fa-file-invoice-dollar mr-3"></i>
+                        Invoices
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-50 transition">
+                        <i class="fas fa-bus mr-3"></i>
+                        Suppliers
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 rounded-lg hover:bg-primary hover:bg-opacity-50 transition">
+                        <i class="fas fa-chart-bar mr-3"></i>
+                        Reports
+                    </a>
+                </nav>
+                
+                <div class="mt-8 pt-6 border-t border-primary border-opacity-30">
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/100?random=11" alt="User profile" class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold">John Safari</p>
+                            <p class="text-xs text-accent">Senior Consultant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm p-4 flex justify-between items-center no-print">
+                <h2 class="text-xl font-semibold">Dashboard Overview</h2>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-bell text-secondary"></i>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-gray-100">
+                        <i class="fas fa-cog text-secondary"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Active Itineraries</p>
+                                <p class="text-2xl font-bold">24</p>
+                            </div>
+                            <div class="p-3 rounded-full bg-primary bg-opacity-10 text-primary">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Upcoming Bookings</p>
+                                <p class="text-2xl font-bold">18</p>
+                            </div>
+                            <div class="p-3 rounded-full bg-accent bg-opacity-10 text-accent">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Pending Invoices</p>
+                                <p class="text-2xl font-bold">7</p>
+                            </div>
+                            <div class="p-3 rounded-full bg-secondary bg-opacity-10 text-secondary">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">New Clients</p>
+                                <p class="text-2xl font-bold">12</p>
+                            </div>
+                            <div class="p-3 rounded-full bg-green-500 bg-opacity-10 text-green-500">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Itineraries -->
+                <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
+                    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="font-semibold">Recent Itineraries</h3>
+                        <button class="px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 transition">
+                            <i class="fas fa-plus mr-2"></i> New Itinerary
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ref #</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Destination</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dates</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">WT-2023-045</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Smith Family</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Serengeti, Tanzania</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">15-25 Nov 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Confirmed</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button class="text-primary hover:text-secondary mr-3">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-primary hover:text-secondary">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">WT-2023-046</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Johnson Group</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Maasai Mara, Kenya</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">5-12 Dec 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button class="text-primary hover:text-secondary mr-3">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-primary hover:text-secondary">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">WT-2023-047</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Anderson Couple</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">Okavango, Botswana</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">10-20 Jan 2025</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">Draft</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button class="text-primary hover:text-secondary mr-3">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-primary hover:text-secondary">
+                                            <i class="fas fa-print"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Create New -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-semibold mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                                <span>New Itinerary</span>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+                            <button class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                                <span>Generate Invoice</span>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+                            <button class="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                                <span>Add New Client</span>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-semibold mb-4">Upcoming Bookings</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-primary text-white rounded-lg p-2 text-center mr-3">
+                                    <div class="text-xs font-bold">NOV</div>
+                                    <div class="text-lg font-bold">15</div>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Smith Family Safari</p>
+                                    <p class="text-sm text-gray-500">Serengeti, Tanzania</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-secondary text-white rounded-lg p-2 text-center mr-3">
+                                    <div class="text-xs font-bold">DEC</div>
+                                    <div class="text-lg font-bold">5</div>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Johnson Group Tour</p>
+                                    <p class="text-sm text-gray-500">Maasai Mara, Kenya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Clients -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="font-semibold mb-4">Recent Clients</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <img src="https://picsum.photos/50?random=12" alt="Client" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <p class="font-medium">Robert Smith</p>
+                                    <p class="text-sm text-gray-500">Family of 4</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="https://picsum.photos/50?random=13" alt="Client" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <p class="font-medium">Sarah Johnson</p>
+                                    <p class="text-sm text-gray-500">Group of 8</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="https://picsum.photos/50?random=14" alt="Client" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <p class="font-medium">Michael Anderson</p>
+                                    <p class="text-sm text-gray-500">Couple</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Sample Invoice Template (hidden until needed) -->
+    <div id="invoice-template" class="hidden print-only p-8 max-w-4xl mx-auto">
+        <div class="mb-8">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-serif font-bold text-primary">WildTrails</h1>
+                    <p class="text-secondary">Safari Travel Specialists</p>
+                </div>
+                <div class="text-right">
+                    <h2 class="text-2xl font-bold">INVOICE</h2>
+                    <p class="text-gray-500">#WT-2023-045</p>
+                    <p class="text-gray-500">Date: 15/10/2023</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-8 grid grid-cols-2 gap-8">
+            <div>
+                <h3 class="font-bold mb-2">Bill To:</h3>
+                <p>Smith Family</p>
+                <p>123 Safari Lane</p>
+                <p>New York, NY 10001</p>
+                <p>USA</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">Trip Details:</h3>
+                <p><span class="font-semibold">Destination:</span> Serengeti, Tanzania</p>
+                <p><span class="font-semibold">Dates:</span> 15-25 November 2025</p>
+                <p><span class="font-semibold">Travelers:</span> 4 (2 Adults, 2 Children)</p>
+            </div>
+        </div>
+        
+        <table class="w-full mb-8">
+            <thead>
+                <tr class="border-b-2 border-primary">
+                    <th class="text-left py-2">Description</th>
+                    <th class="text-right py-2">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-gray-200">
+                    <td class="py-3">Serengeti Safari Lodge (5 nights)</td>
+                    <td class="text-right">$3,200.00</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <td class="py-3">Private Safari Vehicle with Guide</td>
+                    <td class="text-right">$2,400.00</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <td class="py-3">Park Entry Fees</td>
+                    <td class="text-right">$800.00</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                    <td class="py-3">Hot Air Balloon Safari</td>
+                    <td class="text-right">$1,600.00</td>
+                </tr>
+                <tr class="border-b-2 border-primary">
+                    <td class="py-3 font-bold">Subtotal</td>
+                    <td class="text-right">$8,000.00</td>
+                </tr>
+                <tr>
+                    <td class="py-3 font-bold text-lg">TOTAL</td>
+                    <td class="text-right font-bold text-lg">$8,000.00</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="text-center text-sm text-gray-500 mt-12">
+            <p>Thank you for choosing WildTrails for your safari adventure!</p>
+            <p>Payment due within 14 days. Please contact us with any questions.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Sample data for the application
+        const safariDestinations = [
+            { "id": 1, "name": "Serengeti National Park", "country": "Tanzania", "image": "https://picsum.photos/400/300?random=20" },
+            { "id": 2, "name": "Maasai Mara Reserve", "country": "Kenya", "image": "https://picsum.photos/400/300?random=21" },
+            { "id": 3, "name": "Okavango Delta", "country": "Botswana", "image": "https://picsum.photos/400/300?random=22" },
+            { "id": 4, "name": "Kruger National Park", "country": "South Africa", "image": "https://picsum.photos/400/300?random=23" }
+        ];
+        
+        const safariActivities = [
+            { "id": 1, "name": "Game Drives", "description": "Morning and evening wildlife viewing" },
+            { "id": 2, "name": "Walking Safari", "description": "Guided bush walks with armed ranger" },
+            { "id": 3, "name": "Hot Air Balloon", "description": "Sunrise balloon ride over the plains" },
+            { "id": 4, "name": "Cultural Visit", "description": "Visit to local Maasai village" }
+        ];
+        
+        const accommodationTypes = [
+            { "id": 1, "name": "Luxury Tented Camp", "priceRange": "$400-$800/night" },
+            { "id": 2, "name": "Safari Lodge", "priceRange": "$300-$600/night" },
+            { "id": 3, "name": "Mobile Camp", "priceRange": "$500-$1000/night" },
+            { "id": 4, "name": "Eco Camp", "priceRange": "$200-$400/night" }
+        ];
+        
+        // Function to handle printing
+        function printInvoice() {
+            const printContents = document.getElementById('invoice-template').innerHTML;
+            const originalContents = document.body.innerHTML;
+            
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+        
+        // Event listeners for navigation
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                // In a real app, this would handle routing
+                console.log('Navigating to:', this.getAttribute('href'));
+            });
+        });
+        
+        // Initialize tooltips and other UI elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // This would initialize any additional UI components
+        });
+    </script>
+</body>
+</html>
